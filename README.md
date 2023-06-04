@@ -1,3 +1,7 @@
-update readme on Johnnie
+Johnnies Line = Hello
 
-testing more commits
+Oz Line = 
+
+TJ Line = 
+
+Alejandro Line = 
