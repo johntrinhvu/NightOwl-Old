@@ -1,2 +1,1 @@
 Yo!
-Let's Rock!
