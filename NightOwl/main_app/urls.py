@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
+    path('owls/<int:owl_id>/add_photo/', views.add_photo, name='add_photo'),
 ]
