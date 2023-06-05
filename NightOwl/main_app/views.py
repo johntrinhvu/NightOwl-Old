@@ -15,6 +15,10 @@ def index(request):
 
 def home(request):
     return render(request, 'home.html')
+<<<<<<< HEAD
+def login(request):
+    return render(request, 'nightowl/login.html')
+=======
 
 def about(request):
     return render(request, 'about.html')
@@ -33,3 +37,4 @@ def add_photo(request, owl_id):
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('detail', owl_id=owl_id)
+>>>>>>> dba03e5b9833afb3ad4f3d64c92b1b0e6f7e36f5
