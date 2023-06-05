@@ -2,6 +2,6 @@ Johnnies Line = Hello
 
 Oz Line = 
 
-TJ Line = fhsuai, something
+TJ Line = fhsuai, something.
 
 Alejandro Line = 
