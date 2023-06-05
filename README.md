@@ -1,6 +1,6 @@
 Johnnies Line = Hello
 
-Oz Line = 
+Oz Line = Yo!
 
 TJ Line = fhsuai
 
