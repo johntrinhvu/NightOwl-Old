@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="form-container" id="login-form">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" id="username" name="username" placeholder="Username">
+            <input type="password" id="password" name="password" placeholder="Password">
+            <input type="submit" value="Login">
+        </form>
+        <p>Don't have an account? <a href="#" id="register-link">Register</a></p>
+    </div>
+
+    <div class="form-container" id="register-form" style="display:none">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" id="new_username" name="new_username" placeholder="Username">
+            <input type="password" id="new_password" name="new_password" placeholder="Password">
+            <input type="submit" value="Register">
+        </form>
+        <p>Already have an account? <a href="#" id="login-link">Login</a></p>
+    </div>
+
+    <script src="{% static 'js/loginregister.js' %}"></script>
+</body>
+</html>

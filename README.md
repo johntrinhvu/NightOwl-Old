@@ -1,7 +1,7 @@
 Johnnies Line = Hello
 
-Oz Line = 
+Oz Line = Yo!
 
-TJ Line = fhsuai, something else
+TJ Line = fhsuai, something.
 
-Alejandro Line = another change
+Alejandro Line = making a third change, VAL >> LEAGUE
