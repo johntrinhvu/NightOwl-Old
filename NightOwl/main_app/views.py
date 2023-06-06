@@ -4,6 +4,8 @@ import uuid
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+
 # from .models import Owl, Photo
 
 
@@ -56,6 +58,9 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'nightowl/login.html', context)
 
+@login_required
+def profile(request):
+    return render(request, 'nightowl/profile.html', {'user': request.user})
 
 # def add_photo(request, owl_id):
 #     photo_file = request.FILES.get('photo-file', None)
