@@ -10,6 +10,8 @@ urlpatterns = [
     
     path('about/', views.about, name='about'),
     path('signup/', views.signup, name='signup'),
+    path('profile/', views.profile, name='profile'),
+
     # path('events/<int:event_id>/add_photo/', views.add_photo, name='add_photo'),
     # path('owls/<int:owl_id>/add_photo/', views.add_photo, name='add_photo'),
 ]
