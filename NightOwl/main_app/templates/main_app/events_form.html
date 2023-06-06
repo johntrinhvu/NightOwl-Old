@@ -4,16 +4,16 @@
 
 {% if object %}
     <h1>Edit <span class="teal-text">{{object.name}}</span></h1>
-    {% else %}
+{% else %}
     <h1>Post An Event</h1>
-    {% endif %}
+{% endif %}
 
-  <form action="" method="POST">
-    {% csrf_token %}
+<form action="" method="POST">
+{% csrf_token %}
     <table>
-      {{ form.as_table }}
+        {{ form.as_table }}
     </table>
     <input type="submit" value="Submit!" class="btn">
-  </form>
+</form>
  
 {% endblock %}
