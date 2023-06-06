@@ -1,5 +1,6 @@
-import os
-import uuid
+
+# import os
+# import uuid
 # import boto3
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
@@ -12,7 +13,7 @@ from django.contrib.auth import logout
 # from .models import Owl, Photo
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-# from .models import Event, Photo
+
 
 
 
@@ -40,7 +41,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('home.html')
         else:
             error_message = 'Invalid username or password'
 
