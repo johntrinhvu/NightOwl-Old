@@ -1,15 +1,18 @@
-import os
-import uuid
-import boto3
+
+# import os
+# import uuid
+# import boto3
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
+# from .models import Owl, Photo
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-
-
 
 # Create your views here.
 from .models import Event
@@ -59,7 +62,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('home.html')
         else:
             error_message = 'Invalid username or password'
 
@@ -98,6 +101,17 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'nightowl/login.html', context)
 
+def logout_view(request):
+    logout(request)
+    return redirect('login_view')
+
+@login_required
+def profile(request):
+    return render(request, 'nightowl/profile.html', {'user': request.user})
+
+@login_required(login_url='/login')
+def home(request):
+    return render(request, 'home.html')
 
 # def add_photo(request, owl_id):
 #     photo_file = request.FILES.get('photo-file', None)
