@@ -44,7 +44,7 @@
 <!-- LOGIN -->
 <div class="form-container" id="login-form">
     <h1>NightOwl</h1>
-    <form method="POST" action="{% url 'login_view' %}">
+    <form method="POST" action="{% url 'login' %}">
         {% csrf_token %}
         <input type="text" id="username" name="username" placeholder="Username">
         <input type="password" id="password" name="password" placeholder="Password">
@@ -61,7 +61,7 @@
         {{ form.as_p }}
         <button type="submit" onclick="return validatePasswords();">Register</button>
     </form>
-    <p>Already have an account? <a href="{% url 'login_view' %}" id="login-link">Login</a></p>
+    <p>Already have an account? <a href="#" id="login-link">Login</a></p>
     {% if error_message %}
         <p>{{ error_message }}</p>
     {% endif %}
