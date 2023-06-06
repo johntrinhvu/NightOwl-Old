@@ -2,17 +2,17 @@ import os
 import uuid
 import boto3
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Event, Photo
 
 
 
 
 # Create your views here.
+from .models import Event
 from django.http import HttpResponse
 
 events = [
@@ -22,22 +22,33 @@ events = [
 
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
-    fields = ['name', 'type', 'location', 'time', 'capacity', 'restrictions', 'notes']
+    fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
+    success_url = '/events/{event_id}'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+class EventUpdate(UpdateView):
+  model = Event
+  # Let's disallow the renaming of a cat by excluding the name field!
+  fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
+
+class EventDelete(DeleteView):
+  model = Event
+  success_url = '/events'
+
+def events_index(request):
+    events = Event.objects.all()
+    return render(request, 'events/index.html', {
+        'events': events
+    })
 
 def index(request):
     return HttpResponse("Hello, world. You're at the main_app index.")
 
 def home(request):
     return render(request, 'home.html')
-
-def events_index(request):
-    return render(request, 'events/index.html', {
-        'events': events
-    })
 
 def login_view(request):
     error_message = ''
