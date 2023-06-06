@@ -1,12 +1,15 @@
 from django.urls import path
+from django.contrib.auth.views import LoginView
 
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('events/', views.events_index, name='index'),
     path('', views.home, name='home'),
-    path('login/', views.login, name='login'),
+    path('login/', LoginView.as_view(template_name='nightowl/login.html'), name='login_view'),
+    
     path('about/', views.about, name='about'),
-    path('events/<int:event_id>/add_photo/', views.add_photo, name='add_photo'),
-    path('accounts/signup/', views.signup, name='signup'),
+    path('signup/', views.signup, name='signup'),
+    # path('events/<int:event_id>/add_photo/', views.add_photo, name='add_photo'),
+    # path('owls/<int:owl_id>/add_photo/', views.add_photo, name='add_photo'),
 ]
