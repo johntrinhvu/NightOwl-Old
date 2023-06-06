@@ -1,6 +1,6 @@
-import os
-import uuid
-import boto3
+# import os
+# import uuid
+# import boto3
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
 from django.contrib.auth import login
@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 # from .models import Owl, Photo
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Event, Photo
+from .models import Event
 
 
 
@@ -38,10 +38,10 @@ def index(request):
 def home(request):
     return render(request, 'home.html')
 
-def events_index(request):
-    return render(request, 'events/index.html', {
-        'events': events
-    })
+# def events_index(request):
+#     return render(request, 'events/index.html', {
+#         'events': events
+#     })
 
 def login_view(request):
     error_message = ''
@@ -52,7 +52,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('home.html')
         else:
             error_message = 'Invalid username or password'
 
