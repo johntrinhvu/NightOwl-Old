@@ -38,10 +38,10 @@ def index(request):
 def home(request):
     return render(request, 'home.html')
 
-def events_index(request):
-    return render(request, 'events/index.html', {
-        'events': events
-    })
+# def events_index(request):
+#     return render(request, 'events/index.html', {
+#         'events': events
+#     })
 
 def login_view(request):
     error_message = ''
@@ -52,7 +52,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('home.html')
         else:
             error_message = 'Invalid username or password'
 

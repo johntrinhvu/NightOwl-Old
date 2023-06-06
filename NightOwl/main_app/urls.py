@@ -4,7 +4,7 @@ from django.contrib.auth.views import LoginView
 from . import views
 
 urlpatterns = [
-    path('events/', views.events_index, name='index'),
+    # path('events/', views.events_index, name='index'),
     path('', views.home, name='home'),
     path('login/', LoginView.as_view(template_name='nightowl/login.html'), name='login_view'),
     
