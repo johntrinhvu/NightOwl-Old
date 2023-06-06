@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 # from .models import Owl, Photo
 
@@ -23,8 +24,6 @@ def events_index(request):
         'events': events
     })
 
-def home(request):
-    return render(request, 'home.html')
 
 def login_view(request):
     error_message = ''
@@ -58,9 +57,17 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'nightowl/login.html', context)
 
+def logout_view(request):
+    logout(request)
+    return redirect('login_view')
+
 @login_required
 def profile(request):
     return render(request, 'nightowl/profile.html', {'user': request.user})
+
+@login_required(login_url='/login')
+def home(request):
+    return render(request, 'home.html')
 
 # def add_photo(request, owl_id):
 #     photo_file = request.FILES.get('photo-file', None)
