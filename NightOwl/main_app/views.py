@@ -11,7 +11,15 @@ from django.contrib.auth import authenticate, login
 # Create your views here.
 from django.http import HttpResponse
 
+events = [
+  {'name': 'Toga Party', 'description': 'Rager at secret location strict dress code, 21+ only', 'location': 'Los Angeles, CA', 'date': '06/08/2023', 'capacity': 'Capacity 88/150'},
+  {'name': 'Jazz Function', 'description': '21+ only', 'location': 'Hollywood, CA', 'date': '06/08/2023', 'capacity': 'Capacity 13/25'},
+]
 
+def events_index(request):
+    return render(request, 'events/index.html', {
+        'events': events
+    })
 
 def home(request):
     return render(request, 'home.html')
@@ -47,6 +55,7 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'nightowl/login.html', context)
+
 
 # def add_photo(request, owl_id):
 #     photo_file = request.FILES.get('photo-file', None)
