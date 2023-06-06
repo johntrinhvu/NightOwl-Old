@@ -53,6 +53,7 @@
   .header-center input {
     width: 25rem; /* 400px */
     padding: .5rem;
+    margin-right: -8rem;
   }
   
   .header-center input:focus,
@@ -64,7 +65,7 @@
   .header-right {
     display: flex;
     align-items: center;
-    width: 12.5rem; /* 200px */
+    width: 17.5rem; /* 200px */
   }
   
   .header-right button {
@@ -76,8 +77,8 @@
     text-align: center;
     cursor: pointer;
     margin-right: 1.25rem; /* 20px */
-  }
-  
+}
+
   .header-right i {
     margin-right: 1.25rem; /* 20px */
   }

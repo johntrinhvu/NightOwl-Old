@@ -1,3 +1,4 @@
+
 # import os
 # import uuid
 # import boto3
@@ -7,30 +8,18 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 # from .models import Owl, Photo
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Event
+
 
 
 
 
 # Create your views here.
 from django.http import HttpResponse
-
-events = [
-  {'name': 'Toga Party', 'description': 'Rager at secret location strict dress code, 21+ only', 'location': 'Los Angeles, CA', 'date': '06/08/2023', 'capacity': 'Capacity 88/150'},
-  {'name': 'Jazz Function', 'description': '21+ only', 'location': 'Hollywood, CA', 'date': '06/08/2023', 'capacity': 'Capacity 13/25'},
-]
-
-class EventCreate(LoginRequiredMixin, CreateView):
-    model = Event
-    fields = ['name', 'type', 'location', 'time', 'capacity', 'restrictions', 'notes']
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
 
 def index(request):
     return HttpResponse("Hello, world. You're at the main_app index.")
@@ -91,9 +80,17 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'nightowl/login.html', context)
 
+def logout_view(request):
+    logout(request)
+    return redirect('login_view')
+
 @login_required
 def profile(request):
     return render(request, 'nightowl/profile.html', {'user': request.user})
+
+@login_required(login_url='/login')
+def home(request):
+    return render(request, 'home.html')
 
 # def add_photo(request, owl_id):
 #     photo_file = request.FILES.get('photo-file', None)
