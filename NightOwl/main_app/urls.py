@@ -8,4 +8,5 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('about/', views.about, name='about'),
     path('events/<int:event_id>/add_photo/', views.add_photo, name='add_photo'),
+    # path('owls/<int:owl_id>/add_photo/', views.add_photo, name='add_photo'),
 ]

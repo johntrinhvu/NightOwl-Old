@@ -1,6 +1,54 @@
-{% extends 'base.html' %}
-{% block content %}
+{% load static %}
 
-<h1>Home</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NightOwl</title>
+    <script src="https://kit.fontawesome.com/1546d6398c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <!-- Add your CSS link here -->
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1 style="font-weight: 800;">NightOwl</h1>
+        </div>
+        <div class="header-center">
+            <input type="text" placeholder="Enter Zip Code" id="zipcode" name="zipcode" />
+        </div>
+        <div class="header-right">
+            <button>Post an Event</button>
+            <i class="fas fa-user-circle" style="font-size: 150%;"></i>
+        </div>
+    </header>
 
-{% endblock %}
+    <nav>
+        <ul>
+            <li><i class="fas fa-face-laugh-wink" style="font-size: 150%;"></i><p style="margin-top: 5px;">Party</p></li>
+            <li><i class="fas fa-dice" style="font-size: 150%;"></i><p style="margin-top: 5px;">Game</p></li>
+            <li><i class="fas fa-glass-cheers" style="font-size: 150%;"></i><p style="margin-top: 5px;">Club</p></li>
+            <li><i class="fas fa-home" style="font-size: 150%;"></i><p style="margin-top: 5px;">House Party</p></li>
+            <li><i class="fas fa-beer" style="font-size: 150%;"></i><p style="margin-top: 5px;">Bar</p></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="search">
+            <input type="text" placeholder="Search" id="search" name="search" />
+        </div>
+
+        <div class="card-container">
+            {% for event in events %}
+                <div class="card">
+                    <div class="card-header">
+                        <i class="far fa-heart" style="font-size: 150%;"></i> <!-- Empty heart icon -->
+                    </div>
+                    <div class="card-body">
+                        <!-- Fill in with your event data -->
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>
