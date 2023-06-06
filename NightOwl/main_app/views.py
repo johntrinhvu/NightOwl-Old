@@ -1,4 +1,3 @@
-
 # import os
 # import uuid
 # import boto3
@@ -22,15 +21,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Event
 from django.http import HttpResponse
 
-events = [
-  {'name': 'Toga Party', 'description': 'Rager at secret location strict dress code, 21+ only', 'location': 'Los Angeles, CA', 'date': '06/08/2023', 'capacity': 'Capacity 88/150'},
-  {'name': 'Jazz Function', 'description': '21+ only', 'location': 'Hollywood, CA', 'date': '06/08/2023', 'capacity': 'Capacity 13/25'},
-]
 
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
     fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
-    success_url = '/events/{event_id}'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -38,18 +32,15 @@ class EventCreate(LoginRequiredMixin, CreateView):
     
 class EventUpdate(UpdateView):
   model = Event
-  # Let's disallow the renaming of a cat by excluding the name field!
   fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
 
 class EventDelete(DeleteView):
   model = Event
   success_url = '/events'
 
-def events_index(request):
-    events = Event.objects.all()
-    return render(request, 'events/index.html', {
-        'events': events
-    })
+def events_detail(request, event_id):
+    event = Event.objects.get(id=event_id)
+    return render(request, 'events/detail.html', { 'event': event })
 
 def index(request):
     return HttpResponse("Hello, world. You're at the main_app index.")
