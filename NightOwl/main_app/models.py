@@ -4,24 +4,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Event(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    type = models.CharField(max_length=100)
-    description = models.TextField(max_length=250)
-    location = models.CharField(max_length=100)
-    time = models.CharField(max_length=100)
-    capacity = models.CharField(max_length=100)
-    restrictions = models.CharField(max_length=100)
-    notes = models.TextField(max_length=500)
-
-    def __str__(self):
-        return f'{self.name} {{ self.id }}'
-    
-    def get_absolute_url(self):
-        return reverse('detail', kwargs={'event_id': self.id})
-
-
 
 # class Photo(models.Model):
 #     url = models.CharField(max_length=200)

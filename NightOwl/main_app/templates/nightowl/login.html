@@ -37,7 +37,7 @@
 <body>
     <div class="overlay"></div>
     
-    <video id="video-background" data-videos='{% static "videos/party.mp4" %}, {% static "videos/party2.mp4" %}, {% static "videos/party3.mp4" %}' autoplay loop muted></video>
+    <video id="video-background" data-videos='{% static "loginvideo/party.mp4" %}, {% static "loginvideo/party2.mp4" %}, {% static "loginvideo/party3.mp4" %}' autoplay loop muted></video>
     <div id="video-overlay"></div>
 
 
@@ -50,7 +50,7 @@
         <input type="password" id="password" name="password" placeholder="Password">
         <button type="submit">Login</button>
     </form>
-    <p>Don't have an account? <a href="{% url 'signup' %}" id="register-link" onclick="changeUrl('/signup/')">Register</a></p>
+    <p>Don't have an account? <a href="#" id="register-link">Register</a></p>
 </div>
 
 <!-- REGISTRATION -->
@@ -61,7 +61,7 @@
         {{ form.as_p }}
         <button type="submit" onclick="return validatePasswords();">Register</button>
     </form>
-    <p>Already have an account? <a href="{% url 'login_view' %}" id="login-link">Login</a></p>
+    <p>Already have an account? <button id="login-link">Login</button></p>
     {% if error_message %}
         <p>{{ error_message }}</p>
     {% endif %}
@@ -105,15 +105,15 @@
     // Set up click event for Register link
     registerLink.addEventListener('click', function(e) {
         e.preventDefault();
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'flex';
+        loginForm.style.visibility = 'hidden';
+        registerForm.style.visibility = 'visible';
     });
 
     // Set up click event for Login link
     loginLink.addEventListener('click', function(e) {
         e.preventDefault();
-        registerForm.style.display = 'none';
-        loginForm.style.display = 'flex';
+        loginForm.style.visibility = 'visible';
+        registerForm.style.visibility = 'hidden';
     });
 });
 function validatePasswords() {
@@ -127,9 +127,7 @@ function validatePasswords() {
 
         return true;
     }
-    function changeUrl(url) {
-        history.pushState({}, '', url);
-    }
+
     </script>
 </body>
 </html>

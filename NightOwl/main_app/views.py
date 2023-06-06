@@ -1,38 +1,23 @@
-import os
-import uuid
-import boto3
+
+# import os
+# import uuid
+# import boto3
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
+# from .models import Owl, Photo
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Event
+
+
+# Create your views here.
 from django.http import HttpResponse
-
-events = [
-  {'name': 'Toga Party', 'description': 'Rager at secret location strict dress code, 21+ only', 'location': 'Los Angeles, CA', 'date': '06/08/2023', 'capacity': 'Capacity 88/150'},
-  {'name': 'Jazz Function', 'description': '21+ only', 'location': 'Hollywood, CA', 'date': '06/08/2023', 'capacity': 'Capacity 13/25'},
-]
-
-class EventCreate(LoginRequiredMixin, CreateView):
-    model = Event
-    fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
-    success_url = '/events/{event_id}'
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-    
-class EventUpdate(UpdateView):
-  model = Event
-  # Let's disallow the renaming of a cat by excluding the name field!
-  fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
-
-class EventDelete(DeleteView):
-  model = Event
-  success_url = '/events'
 
 def index(request):
     return HttpResponse("Hello, world. You're at the main_app index.")
@@ -40,11 +25,10 @@ def index(request):
 def home(request):
     return render(request, 'home.html')
 
-def events_index(request):
-    events = Event.objects.all()
-    return render(request, 'events/index.html', {
-        'events': events
-    })
+# def events_index(request):
+#     return render(request, 'events/index.html', {
+#         'events': events
+#     })
 
 def events_detail(request, event_id):
     event = Event.objects.get(id=event_id)
@@ -59,7 +43,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('home.html')
         else:
             error_message = 'Invalid username or password'
 
@@ -98,6 +82,17 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'nightowl/login.html', context)
 
+def logout_view(request):
+    logout(request)
+    return redirect('login_view')
+
+@login_required
+def profile(request):
+    return render(request, 'nightowl/profile.html', {'user': request.user})
+
+@login_required(login_url='/login')
+def home(request):
+    return render(request, 'home.html')
 
 # def add_photo(request, owl_id):
 #     photo_file = request.FILES.get('photo-file', None)
