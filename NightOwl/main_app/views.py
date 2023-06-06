@@ -1,8 +1,8 @@
-import os
-import uuid
+# import os
+# import uuid
 # import boto3
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
@@ -12,23 +12,37 @@ from django.contrib.auth import logout
 # from .models import Owl, Photo
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-# from .models import Event, Photo
-
-
-
 
 # Create your views here.
+from .models import Event
 from django.http import HttpResponse
 
 
+class EventCreate(LoginRequiredMixin, CreateView):
+    model = Event
+    fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+class EventUpdate(UpdateView):
+  model = Event
+  fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
+
+class EventDelete(DeleteView):
+  model = Event
+  success_url = '/events'
+
+def events_detail(request, event_id):
+    event = Event.objects.get(id=event_id)
+    return render(request, 'events/detail.html', { 'event': event })
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the main_app index.")
 
 def home(request):
     return render(request, 'home.html')
-
-# def events_index(request):
-#     return render(request, 'events/index.html', {
-#         'events': events
-#     })
 
 def login_view(request):
     error_message = ''
@@ -39,7 +53,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('home.html')
         else:
             error_message = 'Invalid username or password'
 

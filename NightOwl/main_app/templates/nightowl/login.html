@@ -105,15 +105,15 @@
     // Set up click event for Register link
     registerLink.addEventListener('click', function(e) {
         e.preventDefault();
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'flex';
+        loginForm.style.visibility = 'hidden';
+        registerForm.style.visibility = 'visible';
     });
 
     // Set up click event for Login link
     loginLink.addEventListener('click', function(e) {
         e.preventDefault();
-        registerForm.style.display = 'none';
-        loginForm.style.display = 'flex';
+        loginForm.style.visibility = 'visible';
+        registerForm.style.visibility = 'hidden';
     });
 });
 function validatePasswords() {
