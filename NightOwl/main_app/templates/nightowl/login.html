@@ -50,7 +50,7 @@
         <input type="password" id="password" name="password" placeholder="Password">
         <button type="submit">Login</button>
     </form>
-    <p>Don't have an account? <a href="{% url 'signup' %}" id="register-link" onclick="changeUrl('/signup/')">Register</a></p>
+    <p>Don't have an account? <a href="{% url 'signup' %}" id="register-link">Register</a></p>
 </div>
 
 <!-- REGISTRATION -->
@@ -127,9 +127,7 @@ function validatePasswords() {
 
         return true;
     }
-    function changeUrl(url) {
-        history.pushState({}, '', url);
-    }
+
     </script>
 </body>
 </html>
