@@ -1,154 +1,159 @@
-{% load static %}
+  {% load static %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>NightOwl</title>
-    <script
-      src="https://kit.fontawesome.com/1546d6398c.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
-    <!-- Add your CSS link here -->
-  </head>
-  <body>
-    <header>
-      <div class="header-left">
-        <h1 style="font-weight: 800">NightOwl</h1>
-      </div>
-      <div class="header-center">
-        <input
-          type="text"
-          placeholder="Enter Zip Code"
-          id="zipcode"
-          name="zipcode"
-        />
-      </div>
-      <div class="header-right">
-        <a href="{% url 'events_create' %}">Post an Event</a>
-        <a href="/profile">
-          <i class="fas fa-user-circle" style="font-size: 150%"></i>
-        </a>
-        <a href="/logout">
-          <i class="fas fa-sign-out-alt" style="font-size: 150%"></i>
-        </a>
-      </div>
-    </header>
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>NightOwl</title>
+      <!-- Bootstrap Datepicker CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
-    <nav>
-      <ul>
-        <li>
-          <a href="#"
-            ><i class="fas fa-face-laugh-wink" style="font-size: 150%"></i>
-            <p style="margin-top: 5px">Party</p></a
-          >
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fas fa-dice" style="font-size: 150%"></i>
-            <p style="margin-top: 5px">Game</p></a
-          >
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fas fa-glass-cheers" style="font-size: 150%"></i>
-            <p style="margin-top: 5px">Club</p></a
-          >
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fas fa-home" style="font-size: 150%"></i>
-            <p style="margin-top: 5px">House Party</p></a
-          >
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fas fa-beer" style="font-size: 150%"></i>
-            <p style="margin-top: 5px">Bar</p></a
-          >
-        </li>
-      </ul>
-    </nav>
+      <!-- Bootstrap Datepicker JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-    <main>
-      <div class="search">
-        <input
-          type="text"
-          placeholder="Search Parties"
-          id="search"
-          name="search"
-        />
-      </div>
-
-      <div class="card-container">
-        <div id="myModal" class="modal">
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="eventDetails"></div>
-          </div>
+      <script
+        src="https://kit.fontawesome.com/1546d6398c.js"
+        crossorigin="anonymous"
+      ></script>
+      <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+      <!-- Add your CSS link here -->
+    </head>
+    <body>
+      <header>
+        <div class="header-left">
+          <h1 style="font-weight: 800">NightOwl</h1>
         </div>
-        {% for event in events %}
-        <div class="card" onClick="handleClick('{{ event.name|escapejs }}', '{{ event.user|escapejs }}', '{{ event.type|escapejs }}', '{{ event.description|escapejs }}', '{{ event.location|escapejs }}', '{{ event.date|escapejs }}', '{{ event.capacity|escapejs }}', '{{ event.restrictions|escapejs }}', '{{ event.notes|escapejs }}')">
-          <div class="card-header">
-            <i class="far fa-heart" style="font-size: 150%;"></i> <!-- Empty heart icon -->
-          </div>
-          <div class="card-body">
-            <h1>{{ event.name }}</h1>
-            <h2>{{ event.location }}</h2>
-            <h2>{{ event.date }}</h2>
-            <h3>{{ event.time }}</h3>
-            <h3>{{ event.capacity }}</h3>
-            <!-- event data -->
-          </div>
+        <div class="header-center">
+          <input
+            type="text"
+            placeholder="Enter Zip Code"
+            id="zipcode"
+            name="zipcode"
+          />
         </div>
-        {% endfor %}
-      </div>
-      
-      <!-- Modal content -->
+        <div class="header-right">
+          <a href="{% url 'events_create' %}">Post an Event</a>
+          <a href="/profile">
+            <i class="fas fa-user-circle" style="font-size: 150%"></i>
+          </a>
+          <a href="/logout">
+            <i class="fas fa-sign-out-alt" style="font-size: 150%"></i>
+          </a>
+        </div>
+      </header>
+
+      <nav>
+        <ul>
+          <li>
+            <a href="#"
+              ><i class="fas fa-face-laugh-wink" style="font-size: 150%"></i>
+              <p style="margin-top: 5px">Party</p></a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><i class="fas fa-dice" style="font-size: 150%"></i>
+              <p style="margin-top: 5px">Game</p></a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><i class="fas fa-glass-cheers" style="font-size: 150%"></i>
+              <p style="margin-top: 5px">Club</p></a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><i class="fas fa-home" style="font-size: 150%"></i>
+              <p style="margin-top: 5px">House Party</p></a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><i class="fas fa-beer" style="font-size: 150%"></i>
+              <p style="margin-top: 5px">Bar</p></a
+            >
+          </li>
+        </ul>
+      </nav>
+
       <main>
-        <!-- Your other HTML code here -->
-      </main>
-      
-      <script>
-        // Get the modal
-        var modal = document.getElementById("myModal");
-      
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-      
-        // When the user clicks on the card, open the modal and display event details
-        function handleClick(name, user, type, description, location, date, capacity, restrictions, notes) {
-          modal.style.display = "block";
-          document.getElementById("eventDetails").innerHTML = `
-            <span class="close">&times;</span>
-            <h1>Event Details</h1>
-            <div class="card">
-              <div class="modal-content">
-                <span class="card-title">${name}</span>
-                <p>User: ${user}</p>
-                <p>Type: ${type}</p>
-                <p>Description: ${description}</p>
-                <p>Location: ${location}</p>
-                <p>Date: ${date}</p>
-                <p>Capacity: ${capacity}</p>
-                <p>Restrictions: ${restrictions}</p>
-                <p>Notes: ${notes}</p>
-              </div>
-              <div class="card-action">
-              </div>
+        <div class="search">
+          <input
+            type="text"
+            placeholder="Search Parties"
+            id="search"
+            name="search"
+          />
+        </div>
+
+        <div class="card-container">
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <div id="eventDetails"></div>
             </div>
-          `;
-        }
-      
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-          modal.style.display = "none";
-        };
-      
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
+          </div>
+          {% for event in events %}
+          <div class="card" onClick="handleClick('{{ event.name|escapejs }}', '{{ event.user|escapejs }}', '{{ event.type|escapejs }}', '{{ event.description|escapejs }}', '{{ event.location|escapejs }}', '{{ event.date|escapejs }}', '{{ event.capacity|escapejs }}', '{{ event.restrictions|escapejs }}', '{{ event.notes|escapejs }}')">
+            <div class="card-header">
+              <i class="far fa-heart" style="font-size: 150%;"></i> <!-- Empty heart icon -->
+            </div>
+            <div class="card-body">
+              <h1>{{ event.name }}</h1>
+              <h2>{{ event.location }}</h2>
+              <h2>{{ event.date }}</h2>
+              <h3>{{ event.time }}</h3>
+              <h3>{{ event.capacity }}</h3>
+              <!-- event data -->
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        
+        <!-- Modal content -->
+        <main>
+          <!-- Your other HTML code here -->
+        </main>
+        
+        <script>
+          // Get the modal
+          var modal = document.getElementById("myModal");
+        
+          // Get the <span> element that closes the modal
+          var span = document.getElementsByClassName("close")[0];
+        
+          // When the user clicks on the card, open the modal and display event details
+          function handleClick(name, user, type, description, location, date, capacity, restrictions, notes) {
+            modal.style.display = "block";
+            document.getElementById("eventDetails").innerHTML = `
+              <h1>Event Details</h1>
+              <div class="card">
+                <div class="modal-content">
+                  <span class="card-title">${name}</span>
+                  <p>User: ${user}</p>
+                  <p>Type: ${type}</p>
+                  <p>Description: ${description}</p>
+                  <p>Location: ${location}</p>
+                  <p>Date: ${date}</p>
+                  <p>Capacity: ${capacity}</p>
+                  <p>Restrictions: ${restrictions}</p>
+                  <p>Notes: ${notes}</p>
+                </div>
+                <div class="card-action">
+                </div>
+              </div>
+            `;
           }
-        };
-      </script>
+        
+          // When the user clicks on <span> (x), close the modal
+          span.onclick = function() {
+            modal.style.display = "none";
+          };
+        
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function(event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          };
+        </script>
