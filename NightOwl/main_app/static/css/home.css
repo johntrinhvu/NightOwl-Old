@@ -190,7 +190,7 @@
     justify-content: center;
     margin: 0 auto;
     cursor: pointer;
-    transition: background 0.15s, color 0.15s, border 0.15s;
+    transition: background .5s, color .8s, border 0.15s;
   }
   
   button:hover {
