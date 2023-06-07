@@ -10,12 +10,8 @@ from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from .models import Event, Photo
+from django import forms
 
-
-
-
-# Create your views here.
-from .models import Event
 from django.http import HttpResponse
 
 
@@ -27,7 +23,6 @@ class EventForm(forms.ModelForm):
             'event_date_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
 
-
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
     form_class = EventForm
@@ -36,10 +31,11 @@ class EventCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-    
+
 class EventUpdate(UpdateView):
-  model = Event
-  fields = ['name', 'type', 'description', 'location', 'time', 'date', 'capacity', 'restrictions', 'notes']
+    model = Event
+    form_class = EventForm
+    # fields = ['name', 'type', 'description', 'location', 'date', 'time', 'capacity', 'restrictions', 'notes']  # Remove this line
 
 class EventDelete(LoginRequiredMixin, DeleteView):
   model = Event
@@ -117,7 +113,7 @@ def home(request):
     print('events', events)
     return render(request, 'home.html', { 'events': events })
 
-# def add_photo(request, owl_id):
+# def add_photo(request, event_id):
 #     photo_file = request.FILES.get('photo-file', None)
 #     if photo_file:
 #         s3 = boto3.client('s3')
