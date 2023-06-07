@@ -102,6 +102,18 @@
           </div>
         </div>
         {% endfor %}
+        {% for photo in event.photo_set.all %}
+          <img class="responsive-img card-panel" src="{{photo.url}}">
+        {% empty %}
+          <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+        {% endfor %}
+        <form action="{% url 'add_photo' event.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+          {% csrf_token %}
+          <input type="file" name="photo-file">
+          <!-- if you need to style the above you'll need client side JS -->
+          <br><br>
+          <button type="submit" class="btn">Upload Photo</button>
+        </form>
       </div>
       
       <!-- Modal content -->

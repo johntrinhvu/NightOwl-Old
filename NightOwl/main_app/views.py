@@ -1,24 +1,17 @@
-# import os
-# import uuid
-# import boto3
+import os
+import uuid
+import boto3
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-
-# from .models import Event, Photo
-
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-
-
-
-
-# Create your views here.
-from .models import Event
 from django.http import HttpResponse
+from .models import Event, Photo
+
+
 
 
 class EventCreate(LoginRequiredMixin, CreateView):
@@ -64,21 +57,21 @@ def login_view(request):
 
     return redirect('signup')
 
-# @login_required
-# def add_photo(request, event_id):
-#     photo_file = request.FILES.get('photo-file', None)
-#     if photo_file:
-#         s3 = boto3.client('s3')
-#         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-#         try: 
-#             bucket = os.environ['S3_BUCKET']
-#             s3.upload_fileobj(photo_file, bucket, key)
-#             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-#             Photo.objects.create(url=url, event_id=event_id)
-#         except Exception as e:
-#             print('An error occurred uploading file to S3')
-#             print(e)
-#     return redirect('detail', event_id=event_id)
+@login_required
+def add_photo(request, event_id):
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        try: 
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            Photo.objects.create(url=url, event_id=event_id)
+        except Exception as e:
+            print('An error occurred uploading file to S3')
+            print(e)
+    return redirect('detail', event_id=event_id)
 
 def signup(request):
     error_message = ''
