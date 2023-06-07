@@ -17,7 +17,7 @@ class Event(models.Model):
     notes = models.TextField(max_length=500)
 
     def __str__(self):
-        return f'{self.name} {{ self.id }}'
+        return f'{self.name} ({ self.id })'
     
     def get_absolute_url(self):
         return reverse('detail', kwargs={'event_id': self.id})
