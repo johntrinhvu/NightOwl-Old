@@ -45,9 +45,6 @@ def events_detail(request, event_id):
 def index(request):
     return HttpResponse("Hello, world. You're at the main_app index.")
 
-def home(request):
-    return render(request, 'home.html')
-
 # def events_index(request):
 #     return render(request, 'events/index.html', {
 #         'events': events
@@ -108,7 +105,10 @@ def profile(request):
 
 @login_required(login_url='/signup')
 def home(request):
-    return render(request, 'home.html')
+    print('something')
+    events = Event.objects.all()
+    print('events', events)
+    return render(request, 'home.html', { 'events': events })
 
 # def add_photo(request, owl_id):
 #     photo_file = request.FILES.get('photo-file', None)
