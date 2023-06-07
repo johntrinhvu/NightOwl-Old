@@ -12,8 +12,6 @@ from django.http import HttpResponse
 from .models import Event, Photo
 from django import forms
 
-from django.http import HttpResponse
-
 
 class EventForm(forms.ModelForm):
     class Meta:
