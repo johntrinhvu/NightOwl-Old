@@ -123,7 +123,14 @@
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     box-sizing: border-box;
     margin-bottom: 20px;
+    transition: transform 0.3s;
+
   }
+  .card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s;
+  }
+  
   
   .search {
     margin-bottom: 20px;
@@ -241,7 +248,8 @@
 
 .close:hover,
 .close:focus {
-  color: transparent;
+  transform: scale(1.2);
+  color: white;
   text-decoration: none;
   cursor: pointer;
 }

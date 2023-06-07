@@ -1,84 +1,90 @@
-{% load static %}
+  {% load static %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>NightOwl</title>
-    <script
-      src="https://kit.fontawesome.com/1546d6398c.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
-    <!-- Add your CSS link here -->
-  </head>
-  <body>
-    <header>
-      <div class="header-left">
-        <h1 style="font-weight: 800">NightOwl</h1>
-      </div>
-      <div class="header-center">
-        <input
-          type="text"
-          placeholder="Enter Zip Code"
-          id="zipcode"
-          name="zipcode"
-        />
-      </div>
-      <div class="header-right">
-        <a href="{% url 'events_create' %}">Post an Event</a>
-        <a href="/profile">
-          <i class="fas fa-user-circle" style="font-size: 150%"></i>
-        </a>
-        <a href="/logout">
-          <i class="fas fa-sign-out-alt" style="font-size: 150%"></i>
-        </a>
-      </div>
-    </header>
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>NightOwl</title>
+      <!-- Bootstrap Datepicker CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
-    <nav>
-      <ul>
-        <li>
-          <a href="#"
-            ><i class="fas fa-face-laugh-wink" style="font-size: 150%"></i>
-            <p style="margin-top: 5px">Party</p></a
-          >
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fas fa-dice" style="font-size: 150%"></i>
-            <p style="margin-top: 5px">Game</p></a
-          >
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fas fa-glass-cheers" style="font-size: 150%"></i>
-            <p style="margin-top: 5px">Club</p></a
-          >
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fas fa-home" style="font-size: 150%"></i>
-            <p style="margin-top: 5px">House Party</p></a
-          >
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fas fa-beer" style="font-size: 150%"></i>
-            <p style="margin-top: 5px">Bar</p></a
-          >
-        </li>
-      </ul>
-    </nav>
+      <!-- Bootstrap Datepicker JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-    <main>
-      <div class="search">
-        <input
-          type="text"
-          placeholder="Search Parties"
-          id="search"
-          name="search"
-        />
-      </div>
+      <script
+        src="https://kit.fontawesome.com/1546d6398c.js"
+        crossorigin="anonymous"
+      ></script>
+      <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+      <!-- Add your CSS link here -->
+    </head>
+    <body>
+      <header>
+        <div class="header-left">
+          <h1 style="font-weight: 800">NightOwl</h1>
+        </div>
+        <div class="header-center">
+          <input
+            type="text"
+            placeholder="Enter Zip Code"
+            id="zipcode"
+            name="zipcode"
+          />
+        </div>
+        <div class="header-right">
+          <a href="{% url 'events_create' %}">Post an Event</a>
+          <a href="/profile">
+            <i class="fas fa-user-circle" style="font-size: 150%"></i>
+          </a>
+          <a href="/logout">
+            <i class="fas fa-sign-out-alt" style="font-size: 150%"></i>
+          </a>
+        </div>
+      </header>
+
+      <nav>
+        <ul>
+          <li>
+            <a href="#"
+              ><i class="fas fa-face-laugh-wink" style="font-size: 150%"></i>
+              <p style="margin-top: 5px">Party</p></a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><i class="fas fa-dice" style="font-size: 150%"></i>
+              <p style="margin-top: 5px">Game</p></a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><i class="fas fa-glass-cheers" style="font-size: 150%"></i>
+              <p style="margin-top: 5px">Club</p></a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><i class="fas fa-home" style="font-size: 150%"></i>
+              <p style="margin-top: 5px">House Party</p></a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><i class="fas fa-beer" style="font-size: 150%"></i>
+              <p style="margin-top: 5px">Bar</p></a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <main>
+        <div class="search">
+          <input
+            type="text"
+            placeholder="Search Parties"
+            id="search"
+            name="search"
+          />
+        </div>
 
       <div class="card-container">
         <div id="myModal" class="modal">

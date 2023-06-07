@@ -9,7 +9,7 @@
       <p>Type: {{ event.type }}</p>
       <p>Description: {{ event.description }}</p>
       <p>Location: {{ event.location }}</p>
-      <p>Time: {{ event.time }}</p>
+      <p>Time: {{ event.event_date_time|date:"F d, Y H:i A" }}</p>
       <p>Capacity: {{ event.capacity }}</p>
       <p>Restrictions: {{ event.restrictions }}</p>
       <p>Notes: {{ event.notes }}</p>
