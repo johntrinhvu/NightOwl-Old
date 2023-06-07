@@ -57,10 +57,10 @@ def login_view(request):
         else:
             error_message = 'Invalid username or password'
 
-    return render(request, 'nightowl/login.html', {'error_message': error_message})
+    return redirect('signup')
 
-def about(request):
-    return render(request, 'about.html')
+# def about(request):
+#     return render(request, 'about.html')
 
 # @login_required
 # def add_photo(request, event_id):
@@ -94,13 +94,13 @@ def signup(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login_view')
+    return redirect('signup')
 
 @login_required
 def profile(request):
     return render(request, 'nightowl/profile.html', {'user': request.user})
 
-@login_required(login_url='/login')
+@login_required(login_url='/signup')
 def home(request):
     return render(request, 'home.html')
 
