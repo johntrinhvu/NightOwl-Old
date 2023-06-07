@@ -12,6 +12,10 @@ from django.contrib.auth import logout
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
+
+
+
 # Create your views here.
 from .models import Event
 from django.http import HttpResponse
@@ -19,7 +23,7 @@ from django.http import HttpResponse
 
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
-    fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
+    fields = ['name', 'type', 'description', 'location', 'time', 'date', 'capacity', 'restrictions', 'notes']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -27,7 +31,7 @@ class EventCreate(LoginRequiredMixin, CreateView):
     
 class EventUpdate(LoginRequiredMixin, UpdateView):
   model = Event
-  fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
+  fields = ['name', 'type', 'description', 'location', 'time', 'date', 'capacity', 'restrictions', 'notes']
 
 class EventDelete(LoginRequiredMixin, DeleteView):
   model = Event
@@ -40,8 +44,10 @@ def events_detail(request, event_id):
 def index(request):
     return HttpResponse("Hello, world. You're at the main_app index.")
 
-def home(request):
-    return render(request, 'home.html')
+# def events_index(request):
+#     return render(request, 'events/index.html', {
+#         'events': events
+#     })
 
 def login_view(request):
     error_message = ''
@@ -98,7 +104,10 @@ def profile(request):
 
 @login_required(login_url='/signup')
 def home(request):
-    return render(request, 'home.html')
+    print('something')
+    events = Event.objects.all()
+    print('events', events)
+    return render(request, 'home.html', { 'events': events })
 
 # def add_photo(request, event_id):
 #     photo_file = request.FILES.get('photo-file', None)
