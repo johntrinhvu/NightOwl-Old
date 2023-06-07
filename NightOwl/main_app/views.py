@@ -8,8 +8,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
-# from .models import Owl, Photo
-from django.contrib.auth.decorators import login_required
+# from .models import Event, Photo
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
@@ -25,11 +25,11 @@ class EventCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
     
-class EventUpdate(UpdateView):
+class EventUpdate(LoginRequiredMixin, UpdateView):
   model = Event
   fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
 
-class EventDelete(DeleteView):
+class EventDelete(LoginRequiredMixin, DeleteView):
   model = Event
   success_url = '/'
 
@@ -100,7 +100,7 @@ def profile(request):
 def home(request):
     return render(request, 'home.html')
 
-# def add_photo(request, owl_id):
+# def add_photo(request, event_id):
 #     photo_file = request.FILES.get('photo-file', None)
 #     if photo_file:
 #         s3 = boto3.client('s3')
@@ -109,8 +109,8 @@ def home(request):
 #             bucket = os.environ['S3_BUCKET']
 #             s3.upload_fileobj(photo_file, bucket, key)
 #             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-#             Photo.objects.create(url=url, owl_id=owl_id)
+#             Photo.objects.create(url=url, event_id=event_id)
 #         except Exception as e:
 #             print('An error occurred uploading file to S3')
 #             print(e)
-#     return redirect('detail', owl_id=owl_id)
+#     return redirect('detail', event_id=event_id)
