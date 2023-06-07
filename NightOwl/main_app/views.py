@@ -36,7 +36,7 @@ class EventUpdate(UpdateView):
 
 class EventDelete(DeleteView):
   model = Event
-  success_url = '/events'
+  success_url = '/'
 
 def events_detail(request, event_id):
     event = Event.objects.get(id=event_id)
@@ -67,9 +67,6 @@ def login_view(request):
             error_message = 'Invalid username or password'
 
     return redirect('signup')
-
-# def about(request):
-#     return render(request, 'about.html')
 
 # @login_required
 # def add_photo(request, event_id):
