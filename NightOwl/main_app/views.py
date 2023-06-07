@@ -24,7 +24,7 @@ from django.http import HttpResponse
 
 class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
-    fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
+    fields = ['name', 'type', 'description', 'location', 'time', 'date', 'capacity', 'restrictions', 'notes']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -32,7 +32,7 @@ class EventCreate(LoginRequiredMixin, CreateView):
     
 class EventUpdate(UpdateView):
   model = Event
-  fields = ['name', 'type', 'description', 'location', 'time', 'capacity', 'restrictions', 'notes']
+  fields = ['name', 'type', 'description', 'location', 'time', 'date', 'capacity', 'restrictions', 'notes']
 
 class EventDelete(DeleteView):
   model = Event
