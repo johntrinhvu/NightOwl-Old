@@ -111,7 +111,6 @@
           {% endfor %}
         </div>
         
-        {% endfor %}
         {% for photo in event.photo_set.all %}
           <img class="responsive-img card-panel" src="{{photo.url}}">
         {% empty %}
