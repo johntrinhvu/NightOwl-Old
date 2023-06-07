@@ -38,7 +38,7 @@ class EventCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
       
-class EventUpdate(UpdateView):
+class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
     form_class = EventForm
     # fields = ['name', 'type', 'description', 'location', 'date', 'time', 'capacity', 'restrictions', 'notes']  # Remove this line
@@ -119,7 +119,7 @@ def home(request):
     print('events', events)
     return render(request, 'home.html', { 'events': events })
 
-# def add_photo(request, owl_id):
+# def add_photo(request, event_id):
 #     photo_file = request.FILES.get('photo-file', None)
 #     if photo_file:
 #         s3 = boto3.client('s3')
