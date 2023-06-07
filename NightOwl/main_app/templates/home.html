@@ -31,8 +31,9 @@
           />
         </div>
         <div class="header-right">
-          <a href="{% url 'events_create' %}">Post an Event</a>
-          <a href="/profile">
+          <button class="btn btn-primary">
+            <a href="{% url 'events_create' %}" class="btn-link">Post an Event</a>
+          </button>          <a href="/profile">
             <i class="fas fa-user-circle" style="font-size: 150%"></i>
           </a>
           <a href="/logout">
@@ -110,7 +111,6 @@
           {% endfor %}
         </div>
         
-        {% endfor %}
         {% for photo in event.photo_set.all %}
           <img class="responsive-img card-panel" src="{{photo.url}}">
         {% empty %}
