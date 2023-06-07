@@ -248,7 +248,8 @@
 
 .close:hover,
 .close:focus {
-  color: transparent;
+  transform: scale(1.2);
+  color: white;
   text-decoration: none;
   cursor: pointer;
 }
