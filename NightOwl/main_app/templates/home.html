@@ -137,7 +137,9 @@
         "date_time": "{{ event.event_date_time }}",
         "capacity": "{{ event.capacity }}",
         "restrictions": "{{ event.restrictions }}",
-        "notes": "{{ event.notes }}"
+        "notes": "{{ event.notes }}",
+        "update": "{% url 'events_update' event.id %}",
+        "delete": "{% url 'events_delete' event.id %}"
       },
       {% endfor %} 
       ];
@@ -159,7 +161,10 @@
                       <P>Restrictions: ${post.restrictions}</P>
                       <p>Notes: ${post.notes}</p>
                     </div>
-                    <div class="card-action"></div>
+                    <div class="card-action">
+                      <a href="${post.update}">Edit</a>
+                      <a href="${post.delete}">Delete</a>
+                    </div>
                   </div>
               </div>
       `
