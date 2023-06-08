@@ -4,7 +4,13 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Create Event</title>
+  <title>
+    {% if object %}
+      Edit {{ object.name }}
+    {% else %}
+      Create Event
+    {% endif %}
+  </title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
   <link rel="stylesheet" href="{% static 'css/event_form.css' %}">
@@ -112,7 +118,12 @@
     <video id="video-background" data-videos='{% static "createformvideo/video1.mp4" %}, {% static "createformvideo/video2.mp4" %}, {% static "createformvideo/video3.mp4" %}' autoplay loop muted></video>
   </div>
   <div class="form-container" id="create-event-form">
-    <h1>Create Event</h1>
+    {% if object %}
+      <h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
+    {% else %}
+      <h1>Create Event</h1>
+    {% endif %}
+
     <form method="POST">
       {% csrf_token %}
       <div class="table-responsive">
@@ -176,28 +187,28 @@
 </body>
 <script>
   window.addEventListener('DOMContentLoaded', function () {
-            var videoElement = document.getElementById('video-background');
-            var videoIndex = 0;
-            var videos = videoElement.dataset.videos.split(', ');
+    var videoElement = document.getElementById('video-background');
+    var videoIndex = 0;
+    var videos = videoElement.dataset.videos.split(', ');
 
-            function loadNextVideo() {
-                videoElement.src = videos[videoIndex].trim();
-                videoElement.load();
-                videoElement.playbackRate = 0.8; // Play video at half speed
-                videoElement.play();
-                videoIndex = (videoIndex + 1) % videos.length;
+    function loadNextVideo() {
+      videoElement.src = videos[videoIndex].trim();
+        videoElement.load();
+        videoElement.playbackRate = 0.8; // Play video at half speed
+        videoElement.play();
+        videoIndex = (videoIndex + 1) % videos.length;
 
-                // Set a timer to load the next video after 5 seconds
-                setTimeout(loadNextVideo, 5000);
-            }
+        // Set a timer to load the next video after 5 seconds
+        setTimeout(loadNextVideo, 5000);
+      }
 
-            videoElement.addEventListener('timeupdate', function() {
-                if (this.currentTime >= this.duration - 0.5) {
-                    loadNextVideo();
-                }
-            });
-
+    videoElement.addEventListener('timeupdate', function() {
+        if (this.currentTime >= this.duration - 0.5) {
             loadNextVideo();
-        });
+        }
+    });
+
+    loadNextVideo();
+  });
 </script>
 </html>
