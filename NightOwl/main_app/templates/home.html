@@ -117,16 +117,6 @@
             <!-- event data -->
           </div>
         </div>
-    
-        <!--    Photo on card     -->
-        <img class="responsive-img card-panel" src="{{event.photo_url}}">
-        <form action="{% url 'add_photo' event.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-          {% csrf_token %}
-          <input type="file" name="photo-file">
-          <!-- if you need to style the above you'll need client side JS -->
-          <br><br>
-          <button type="submit" class="btn">Upload Photo</button>
-        </form>
       {% endfor %}
     </div>
   </main>
@@ -153,8 +143,10 @@
         "capacity": "{{ event.capacity }}",
         "restrictions": "{{ event.restrictions }}",
         "notes": "{{ event.notes }}",
+        "photo_url": "{{ event.photo_url }}",
         "update": "{% url 'events_update' event.id %}",
-        "delete": "{% url 'events_delete' event.id %}"
+        "delete": "{% url 'events_delete' event.id %}",
+        "photo": "{% url 'add_photo' event.id %}"
       },
       {% endfor %} 
       ];
@@ -181,6 +173,15 @@
                       <a href="${post.delete}">Delete</a>
                     </div>
                   </div>
+                <!--    Photo on card     -->
+                <img class="responsive-img card-panel" src="${post.photo_url}">
+                <form action="${post.photo}" enctype="multipart/form-data" method="POST" class="card-panel">
+                  {% csrf_token %}
+                  <input type="file" name="photo-file">
+                  <!-- if you need to style the above you'll need client side JS -->
+                  <br><br>
+                  <button type="submit" class="btn">Upload Photo</button>
+                </form>
               </div>
       `
     }
