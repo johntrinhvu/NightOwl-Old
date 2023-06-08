@@ -114,7 +114,6 @@ def profile(request):
 
 @login_required(login_url='/signup')
 def home(request):
-    print('something')
     events = Event.objects.all().order_by('-event_date_time')
     print('events', events)
     return render(request, 'home.html', { 'events': events })

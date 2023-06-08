@@ -8,7 +8,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
       <!-- Bootstrap Datepicker JS -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script> -->
 
       <script
         src="https://kit.fontawesome.com/1546d6398c.js"
@@ -33,7 +33,8 @@
         <div class="header-right">
           <button class="btn btn-primary">
             <a href="{% url 'events_create' %}" class="btn-link">Post an Event</a>
-          </button>          <a href="/profile">
+          </button>
+          <a href="/profile">
             <i class="fas fa-user-circle" style="font-size: 150%"></i>
           </a>
           <a href="/logout">
@@ -77,99 +78,105 @@
         </ul>
       </nav>
 
-      <main>
-        <div class="search">
-          <input
-            type="text"
-            placeholder="Search Parties"
-            id="search"
-            name="search"
-          />
-        </div>
+  <main>
+    <div class="search">
+      <input
+        type="text"
+        placeholder="Search Parties"
+        id="search"
+        name="search"
+      />
+    </div>
 
-        <div class="card-container">
-          <div id="myModal" class="modal">
-            <div class="modal-content">
-              <span class="close">&times;</span>
-              <div id="eventDetails"></div>
-            </div>
+    <div class="card-container">
+      <div id="myModal" class="modal">
+        <div id="modal-content">
+          <span class="close">&times;</span>
+          <h1>Event Details</h1>
+          <div class="card">
+            <div id="modal-content"></div>
+            <div class="card-action"></div>
           </div>
-          {% for event in events %}
-          <div class="card" onClick="handleClick('{{ event.name|escapejs }}', '{{ event.user|escapejs }}', '{{ event.type|escapejs }}', '{{ event.description|escapejs }}', '{{ event.location|escapejs }}', '{{ event.date|escapejs }}', '{{ event.capacity|escapejs }}', '{{ event.restrictions|escapejs }}', '{{ event.notes|escapejs }}')">
-            <div class="card-header">
-              <i class="far fa-heart" style="font-size: 150%;"></i> <!-- Empty heart icon -->
-            </div>
-            <div class="card-body">
-              <h1>{{ event.name }}</h1>
-              <h2>{{ event.location }}</h2>
-              <h2>{{ event.date }}</h2>
-              <h3>{{ event.time }}</h3>
-              <h3>{{ event.capacity }}</h3>
-              <!-- event data -->
-            </div>
-          </div>
-          {% endfor %}
         </div>
-        
-        {% for photo in event.photo_set.all %}
-          <img class="responsive-img card-panel" src="{{photo.url}}">
-        {% empty %}
-          <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-        {% endfor %}
-        <form action="{% url 'add_photo' event.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-          {% csrf_token %}
-          <input type="file" name="photo-file">
-          <!-- if you need to style the above you'll need client side JS -->
-          <br><br>
-          <button type="submit" class="btn">Upload Photo</button>
-        </form>
       </div>
-      
-      <!-- Modal content -->
-      <main>
-        <!-- Your other HTML code here -->
-      </main>
-      
-      <script>
-        // Get the modal
-        var modal = document.getElementById("myModal");
-      
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-      
-        // When the user clicks on the card, open the modal and display event details
-        function handleClick(name, user, type, description, location, date, capacity, restrictions, notes) {
-          modal.style.display = "block";
-          document.getElementById("eventDetails").innerHTML = `
-            <span class="close">&times;</span>
-            <h1>Event Details</h1>
-            <div class="card">
-              <div class="modal-content">
-                <span class="card-title">${name}</span>
-                <p>User: ${user}</p>
-                <p>Type: ${type}</p>
-                <p>Description: ${description}</p>
-                <p>Location: ${location}</p>
-                <p>Date: ${date}</p>
-                <p>Capacity: ${capacity}</p>
-                <p>Restrictions: ${restrictions}</p>
-                <p>Notes: ${notes}</p>
-              </div>
-              <div class="card-action">
+      {% for event in events %}
+        <div class="card" id="{{ forloop.counter }}" onClick="handleClick(event)">
+          <div class="card-header">
+            <i class="far fa-heart" style="font-size: 150%;"></i> <!-- Empty heart icon -->
+          </div>
+          <div class="card-body">
+            <h1>{{ event.name }}</h1>
+            <h2>{{ event.location }}</h2>
+            <h3>{{ event.event_date_time|date:"F d, Y" }}</h3>
+            <h3>{{ event.event_date_time|date:"g:i A" }}</h3>
+            <h3>{{ event.capacity }}</h3><!-- event data -->
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </main>
+  
+  <!-- Modal content -->
+  <script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
 
+    // When the user clicks on the button, open the modal
+    function handleClick(e) {
+      const id = e.currentTarget.id
+      modal.style.display = "block";
+      var events = [
+      {% for event in events %} {
+        "name": "{{ event.name }}",
+        "user": "{{ event.user }}",
+        "type": "{{ event.type }}",
+        "description": "{{ event.description }}",
+        "location": "{{ event.location }}",
+        "date_time": "{{ event.event_date_time }}",
+        "capacity": "{{ event.capacity }}",
+        "restrictions": "{{ event.restrictions }}",
+        "notes": "{{ event.notes }}"
+      },
+      {% endfor %} 
+      ];
+
+      let post = events[id-1]
+      myModal.innerHTML=`
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <h1>Event Details</h1>
+                  <div class="card">
+                    <div class="modal-content">
+                      <span class="card-title">${post.name}</span>
+                      <p>User: ${post.user}</p>
+                      <p>Type: ${post.type}</p>
+                      <p>Description: ${post.description}</p>
+                      <p>Location: ${post.location}</p>
+                      <p>Date: ${post.date_time}</p>
+                      <p>Capacity: ${post.capacity}</p>
+                      <P>Restrictions: ${post.restrictions}</P>
+                      <p>Notes: ${post.notes}</p>
+                    </div>
+                    <div class="card-action"></div>
+                  </div>
               </div>
-            `;
-          }
-        
-          // When the user clicks on <span> (x), close the modal
-          span.onclick = function() {
-            modal.style.display = "none";
-          };
-        
-          // When the user clicks anywhere outside of the modal, close it
-          window.onclick = function(event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
-            }
-          };
-        </script>
+      `
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+
+      }
+    }
+  </script>
+</body>
+</html>
